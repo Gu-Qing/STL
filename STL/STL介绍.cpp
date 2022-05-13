@@ -92,4 +92,232 @@
 * 8.string字符串比较
 * 函数原型：
 *	int compare(const string &s) const; //与字符串s比较
+*	int compare(const char *s) const; //与字符串s比较
+* 比较方式：字符串比较是按字符的ASCII码进行对比
+* == 返回0、 > 返回1、 < 返回-1
+* 
+* 9.string字符存取
+* string中单个字符存取方式有两种：
+*	char& operator[] (int n); //通过[] 方式取字符
+*	char& ar(int n); //通过at方法获取字符
+* 
+* 10.string插入和删除
+* 函数原型：
+*	string& insert(int pos, const char *s); //插入字符串
+*	string& insert(int pos, const string& str); //插入字符串
+*	string& insert(int pos, int n, char c); //在指定位置插入n个字符c
+*	string& erase(int pos, int n = npos); //删除从pos开始的n个字符串
+* 
+* 11.string子串
+* 函数原型：
+*	string substr(int pos = 0, int n = npos) const; //返回由pos开始的n个字符组成的字符串
+* 
+* ---------------------------------------------------------------------------------------------
+* 
+* vector：
+* 与数组非常相似，称为单端数组
+* 与普通数组的区别：数组是静态控件，vector可以动态扩展
+* 动态扩展：
+* 寻找更大的内存空间，将原数组拷贝到新空间，释放原空间
+* 
+* 1.vector的构造函数：
+*	vector<T> v; //采用模板实现类实现，默认构造函数
+*	vector<v.begin(), v.end()); //将v[begin(), end())区间中的元素拷贝给本身
+*	vector<n, elem>; //构造函数将n个elem拷贝给本身
+*	vector<const vector &vec); //拷贝构造函数
+* 
+* 2.vector的赋值
+*	vector& operator=(const vector &vec); //赋值等号操作符
+*	assign(beg, end); //将[beg, end]区间中的数据拷贝赋值给本身
+*	assign(n, elem); //将n个elem拷贝赋值给本身
+* 
+* 3.vector的容量和大小
+*	empty(); //判断容器是否为空
+*	capacity(); //容器的容量
+*	size(); //返回容器中元素的个数
+*	resize(int num); //重新指定容器的长度为num，若容器变长，则以默认值填充新位置；若变短，则末尾超出容器长度的元素被删除
+*	resize(int num, elem); //同上
+* 
+* 4.vector的插入和删除
+*	push_back(ele); //尾部插入一个元素ele
+*	pop_back(); //删除最后一个元素
+*	insert(const_iterator pos, ele); //迭代器指向位置pos插入元素ele
+*	insert(const_iterator pos, int count, ele); //迭代器指向位置pos插入count个元素ele
+*	erase(const_iterator pos); //删除迭代器指向的元素
+*	erase(const_iterator start, const_iterator end); //删除迭代器从start到end之间的元素
+*	clear(); //删除容器中所有元素
+* 
+* 5.vector数据存取
+*	at(int idx); //返回索引idx所指的数据
+*	operator[idx]; //返回索引idx所指的数据
+*	fornt(); //返回容器中第一个数据元素
+*	back(); //返回容器中最后一个元素
+* 
+* 6.vector互换容器
+*	swap(vec); //将vec与本身的元素互换
+* 
+* 7.vector预留空间（减少vector在动态扩展容量是的扩展次数）
+*	reserve(int len); //容器预留len个元素长度，预留位置不初始化，元素不可访问
+* 
+* ---------------------------------------------------------------------------------------------
+* 
+* deque容器：
+* 双端数组，可以对头端进行插入删除操作
+* deque与vector的区别：
+*  vector对于头部的插入删除效率太低，数据量越大，效率越低
+*  deque相对而言，对头部的插入删除速度会比vector快
+*  vector访问元素是的速度会比deque快，这和两者内部实现有关
+* deque内部工作原理：
+*	deque内部有个中控器，维护每段缓冲区中的内容，缓冲区中存放真实数据
+*	中控器维护的是每个缓冲区的地址，使得使用deque时像一片连续的内存空间
+* deque容器的迭代器也是支持随机访问的
+* 
+* 1.deque的构造函数
+*	deque<T> deqT; //默认构造形式
+*	deque(beg, end); //构造函数将[beg, end)区间中的元素拷贝给本身
+*	deque(n, elem); //构造函数将n个elem拷贝给本身
+*	deque(const deque &deq); //拷贝构造函数
+* 
+* 2.deque赋值操作
+*	deque& operator=(const deque &deq); //重载等号操作符
+*	assign(beg, end); //将[beg, end]区间中的数据拷贝赋值给本身
+*	assign(n, elem); //将n个elem拷贝赋值给本身
+* 
+* 3.deque大小操作
+*	deque.empty(); //判断容器是否为空
+*	deque.size(): //返回容器中元素个数
+*	deque.resize(num); //重新设定容器的长度num
+*	deque.resize(num, elem); //重新设定容器的长度num，并给定默认的填充值elem
+* 
+* 4.deque插入和删除
+* 两端插入操作：
+*	push_back(elem); //在容器尾部添加一个数据
+*	push_front(elem); //在容器头部添加一个数据
+*	pop_back(); //删除容器最后一个数据
+*	pop_front(); //删除容器第一个数据
+* 指定位置操作：
+*	insert(pos, elem); //在pos位置插入一个elem元素的拷贝，返回新数据的位置
+*	insert(pos, n, elem); //在pos位置插入n个elem数据，无返回值
+*	insert(pos, beg, end); //在pos位置插入[beg, end)区间的数据，无返回值
+*	clear(); //清空容器中所有数据
+*	erase(beg, end); //删除[beg, end)区间的数据看，返回下一个数据的位置
+*	erase(pos); //删除pos位置的数据，返回下一个数据的位置
+* 
+* 5.deque数据存取
+*	at(int idx); //返回索引idx所指的数据
+*	operator[]; //返回索引idx所指的数据
+*	front(); //返回容器中第一个数据元素
+*	back(); //返回容器中最后一个数据元素
+* 
+* 6.deque排序
+* 对于支持随机访问的迭代器容器，都可以利用sort算法对其进行排序
+*	sort(iterator beg, iterator end); //对beg到end区间内的元素进行排序
+* 
+* -------------------------------------------------------------------------------------
+* 
+* stack容器
+* stack是一种先进后出（FILO）的数据结构，只有一个出口。
+* 只有栈顶元素才可以被外界使用，不允许遍历
+* 入栈——push、出栈——pop
+* 构造函数：
+*	stack<T> stk; //stack采用模板类实现、stack对象的默认构造形式
+*	stack(const stack &stk); //拷贝构造函数
+* 赋值操作：
+*	stack& operator=(const stack &stk); //重载等号操作符
+* 数据存取：
+*	push(elem); //向栈顶添加元素
+*	pop(); //从栈顶移除第一个元素
+*	top(); //返回栈顶元素
+*大小操作：
+*	empty(); //判断栈堆是否为空
+*	size(); //返回栈的大小
+* 
+* -----------------------------------------------------------------------------
+* 
+* queue容器
+* 是一种先进先出（FIFO）的数据结构，有两个出口
+* 队列容器允许从一端新增元素，从另一端移除元素
+* 队列中只有队头和队尾可以呗外界使用，因此队列不允许有遍历行为
+* push——入队、pop——出队
+* 构造函数：
+*	queue<T> que; //queue采用模板类实现，queue对象的默认构造形式
+*	queue<const queue &que); //拷贝构造函数
+* 赋值操作：
+*	queue& operator=(const queue &que); //重载等号操作符
+* 数据存取：
+*	push(elem); //往队尾添加元素
+*	pop(); //从对头移除第一个元素
+*	back(); //返回最后一个元素
+*	front(); //返回第一个元素
+* 大小操作：
+*	empty(); //判断堆栈是否为空
+*	size(); //返回栈的大小
+* 
+* ------------------------------------------------------------------------
+* 
+* list容器：
+* 将数据进行链式存储。
+* 链表是一种物理存储单元上非连续的存储结构，数据元素的逻辑顺序是通过链表中的指针链接实现的
+* 链表的组成：一系列结点（一个结点是存储数据元素的数据域，另一个结点是存储下一个结点地址的指针域）
+* 由于链表的存储方式并不是连续的内存空间，因此链表中的迭代器只支持前移和后移，属于双向迭代器
+* 优点：
+* 1.采用动态存储分配，不会造成内存浪费和移除
+* 2.链表执行插入和删除操作十分方便，修改指针即可，不需要修改大量元素
+* 缺点：
+* 空间（指针域）和时间（遍历）额外耗费较大。
+* 特性：插入擦做和删除操作都不会造成原有list迭代器的失效，这个特性在vector是不成立的
+* 
+* 1.构造函数：
+*	list<T> list; //采用模板类实现，对象的默认构造形式
+*	list(beg, end); //构造函数将[beg, end)区间中的元素拷贝给本身
+*	list(n, elem); //构造函数将n个elem拷贝给本身
+*	list(const list &lst); //拷贝构造函数
+* 
+* 2.赋值和交换：
+*	assign(beg, end); //将[beg, end)区间中的数据拷贝赋值给本身
+*	assign(n, elem); //将n个elem拷贝赋值给本身
+*	list &operator=(const list &lst); //重载等号操作符
+*	swap(lst); //将lst与本身的元素交换
+* 
+* 3.大小操作
+*	size(); //返回容器中元素的个数
+*	empty(); //判断容器是否为空
+*	resize(num); //重新指定容器的长度为num，若变长以默认值填充（默认为0），变短删除多余的值
+*	resize(num, elem); //重新指定容器的长度为num，若变长以默认值elem填充，变短删除多余的值
+* 
+* 4.插入和删除
+*	push_back(elem); //在容器尾部插入一个元素
+*	pop_back(); //删除容器中的最后一个元素
+*	push_front(); //在容器开头插入一个元素
+*	pop_front(); //在容器开头删除一个元素
+*	insert(pos, elem); //在pos位置插入elem元素的拷贝，返回新数据的位置
+*	insert(pos, n, elem); //在pos位置插入n个elem数据，无返回值
+*	insert(pos, beg, end); //在pos位置插入[beg, end)区间的数据，无返回值
+*	clear(); //移除容器中的所有数据
+*	erase(beg, end); //删除[beg, end)区间的数据，返回下一个数据的位置
+*	erase(pos); //删除pos位置的数据，返回下一个数据的位置
+*	remove(elem); //删除容器中所有与elem值匹配的元素
+* 
+* 5.数据存取
+*	front(); //返回第一个元素
+*	back(); //返回最后一个元素
+* 
+* 6.反转和排序
+*	reverse(); //反转链表
+*	sort(); //链表排序，默认升序，可以自己写函数然后把函数名放入作为参数改为自己想要的排序
+* 
+* -----------------------------------------------------------------------------------------------
+* 
+* set/multiset容器(#include <set>即可)
+* 所有的元素都会在插入时自动被排序
+* set/multiset属于关联式容器，底层结构是二叉树实现
+* 
+* set和multiset的区别：
+*	set不允许容器中有重复元素
+*	multiset允许容器中有重复的元素
+* 
+* set构造和赋值：
+*	set<T> st; //默认构造函数
+*	set(const set &st); //拷贝构造函数
+*	set& operter=(const set &st); //重载等号操作符
 */

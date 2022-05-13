@@ -43,7 +43,7 @@ void test0107() {
 	cout << "str1 = " << str1 << endl; // a11111efg
 }
 
-int main() {
+int test07() {
 
 	test0007();
 	test0107();
