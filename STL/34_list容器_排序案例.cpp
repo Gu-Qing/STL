@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#pragma pack(1)
+
 class Person {
 private:
 	string m_Name;
@@ -10,7 +12,7 @@ private:
 	int m_Height;
 	int m_Test;
 
-public :
+public:
 	Person(string name, int age, int height, int test) {
 		this->m_Name = name;
 		this->m_Age = age;
@@ -27,25 +29,28 @@ public :
 	int getHeight() {
 		return this->m_Height;
 	}
+	int getTest() {
+		return this->m_Test;
+	}
 };
 
-bool myCompare(Person& p1, Person& p2) {
-	if (p1.getAge() == p2.getAge()) {
-		return p1.getHeight() > p2.getHeight();
+bool myCompare(Person* p1, Person* p2) {
+	if (p1->getAge() == p2->getAge()) {
+		return p1->getHeight() > p2->getHeight();
 	}
-	return p1.getAge() < p2.getAge();
+	return p1->getAge() < p2->getAge();
 }
 
-void printPerson(list<Person>& L) {
-	for (list<Person>::iterator it = L.begin(); it != L.end(); it++) {
-		cout << "Name: " << it->getName() << " Age: " << it->getAge() << " Height: " << it->getHeight() << endl;
+void printPerson(list<Person*>& L) {
+	for (list<Person*>::iterator it = L.begin(); it != L.end(); it++) {
+		cout << "Name: " << (*it)->getName() << " Age: " << (*it)->getAge() << " Height: " << (*it)->getHeight() << " Test: " << (*it)->getTest() << endl;
 	}
 }
 
 
 int test34() {
 
-	list<Person> L;
+	list<Person*> L;
 
 	Person p1("张三", 10, 158, 1);
 	Person p2("李四", 20, 150, 2);
@@ -54,12 +59,12 @@ int test34() {
 	Person p5("钱多多", 18, 160, 5);
 	Person p6("孙多宝", 18, 175, 6);
 
-	L.push_back(p1);
-	L.push_back(p2);
-	L.push_back(p3);
-	L.push_back(p4);
-	L.push_back(p5);
-	L.push_back(p6);
+	L.push_back(&p1);
+	L.push_back(&p2);
+	L.push_back(&p3);
+	L.push_back(&p4);
+	L.push_back(&p5);
+	L.push_back(&p6);
 
 	cout << "Before sort: " << endl;
 	printPerson(L);
@@ -71,3 +76,5 @@ int test34() {
 
 	return 0;
 }
+
+#pragma pack()
